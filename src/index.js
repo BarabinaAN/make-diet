@@ -9,6 +9,8 @@ import './scss/index.scss'
 const service = new TestService()
 
 ReactDOM.render(
-  <App />,
+  <ServiceProvider value={service}>
+    <App />
+  </ServiceProvider>,
   document.getElementById('root')
 )
