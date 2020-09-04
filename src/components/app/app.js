@@ -10,12 +10,16 @@
 // * идея приложения: подсчет каллорий и вывод рекомендованных продуктов питания и блюд
 
 import React from 'react'
-import {withServiceConsumer} from '../hoc'
+import {withServiceConsumer, withData} from '../hoc'
 
-const App = ({ service }) => {
+const App = ({ data }) => {
+  const {name} = data[0]
   return (
-    <h1>App component is include</h1>
+    <h1>
+      App component is include
+      <span> {name}</span>
+    </h1>
   )
 }
 
-export default withServiceConsumer(App)
+export default withServiceConsumer(withData(App))

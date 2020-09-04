@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { ServiceConcumer } from '../service-context'
 
 const withServiceConsumer = (Veiw) => {

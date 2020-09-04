@@ -5,7 +5,7 @@ export default class TestService {
     }
   ]
 
-  getData = () => {
+  getTest = () => {
     return this._test
   }
 }
