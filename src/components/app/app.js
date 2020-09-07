@@ -9,17 +9,21 @@
 
 // * идея приложения: подсчет каллорий и вывод рекомендованных продуктов питания и блюд
 
-import React from 'react'
-import {withServiceConsumer, withData} from '../hoc'
+import React from "react";
+import { withServiceConsumer, withData } from "../hoc";
+import DietForm from "../diet-form";
 
 const App = ({ data }) => {
-  const {name} = data[0]
+  const { name } = data[0];
   return (
-    <h1>
-      App component is include
-      <span> {name}</span>
-    </h1>
-  )
-}
+    <div>
+      <h1>
+        App component is include
+        <span> {name}</span>
+      </h1>
+      <DietForm />
+    </div>
+  );
+};
 
-export default withServiceConsumer(withData(App))
+export default withServiceConsumer(withData(App));
