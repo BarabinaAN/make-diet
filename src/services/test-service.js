@@ -1,7 +1,7 @@
 export default class TestService {
   _test = [
     {
-      name: 'first'
+      name: 'Рассчет калорий'
     }
   ]
 

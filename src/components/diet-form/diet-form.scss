@@ -1,2 +1,24 @@
 .diet-form {
+   background-color: #fff;
+   padding: 20px;
+   box-sizing: border-box;
+   border-radius: 20px;
+}
+.fieldset {
+   &:first-child {
+      margin-top: 0;
+   }
+   margin: 20px 0;
+}
+.label {
+   display: block;
+   margin: 10px 0;
+}
+.btn-primary {
+   padding: 10px 15px;
+   border: none;
+   border-radius: 5px;
+   background-color: #b3c248;
+   color: #fff;
+   letter-spacing: 2px;
 }

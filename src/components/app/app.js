@@ -16,9 +16,8 @@ import DietForm from "../diet-form";
 const App = ({ data }) => {
   const { name } = data[0];
   return (
-    <div>
+    <div className='container'>
       <h1>
-        App component is include
         <span> {name}</span>
       </h1>
       <DietForm />
