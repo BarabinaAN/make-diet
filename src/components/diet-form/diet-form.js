@@ -5,48 +5,56 @@ const DietForm = () => {
   return (
     <form action="" method="" className="diet-form">
       <fieldset className='fieldset'>
-        <legend>Пол</legend>
-        <label className='label'>
-          <input type="radio" name="gender" />
-          мужской
+        <legend>Пол:</legend>
+        <label className='label-radio'>
+          <input type="radio" name="gender" value="men" />
+          <span>мужской</span>
         </label>
-        <label className='label'>
+        <label className='label-radio'>
           <input type="radio" name="gender" />
-          женский
+          <span>женский</span>
         </label>
       </fieldset>
       <fieldset className='fieldset'>
-        <legend></legend>
-        <label className='label'>
+        <legend>Параметры Вашего тела:</legend>
+        <label className='label-input'>
           <input type="text" name="age" />
-          возраст (полных лет)
+          <span>возраст (полных лет)</span>
         </label>
-        <label className='label'>
+        <label className='label-input'>
           <input type="text" name="growth" />
-          рост в см
+          <span>рост в см</span>
         </label>
-        <label className='label'>
+        <label className='label-input'>
           <input type="text" name="weight" />
-          вес в кг
+          <span>вес в кг</span>
         </label>
       </fieldset>
       <fieldset className='fieldset'>
-        <legend>Активность</legend>
-        <label className='label'>
+        <legend>Активность:</legend>
+        <label className='label-radio'>
           <input type="radio" name="activity" />
-          малоподвижный (сидячий )
+          <span>
+            малоподвижный (сидячий )
+          </span>
         </label>
-        <label className='label'>
+        <label className='label-radio'>
           <input type="radio" name="activity" />
-          легкая нагрузка (1-3 тренировки в неделю)
+          <span>
+            легкая нагрузка (1-3 тренировки в неделю)
+          </span>
         </label>
-        <label className='label'>
+        <label className='label-radio'>
           <input type="radio" name="activity" />
-          умеренная нагрузка (3-5 тренировок в неделю)
+          <span>
+            умеренная нагрузка (3-5 тренировок в неделю)
+          </span>
         </label>
-        <label className='label'>
+        <label className='label-radio'>
           <input type="radio" name="activity" />
-          высокая нагрузка/профисиональный спорт (более 5 тренировок в неделю)
+          <span>
+            высокая нагрузка/профисиональный спорт (более 5 тренировок в неделю)
+          </span>
         </label>
       </fieldset>
       <button className='btn-primary'>Рассчитать</button>
