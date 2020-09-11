@@ -22,6 +22,7 @@ $border: 1px solid $colorGrey;
 }
 
 .btn-primary {
+   display: inline-block;
    height: 40px;
    padding: 0 15px;
    border: none;
@@ -31,6 +32,8 @@ $border: 1px solid $colorGrey;
    color: #fff;
    letter-spacing: 2px;
    transition: 0.25s all;
+   text-decoration: none;
+   line-height: 40px;
    &:hover {
       background-color: lighten($colorPrimary, 15%);
    }

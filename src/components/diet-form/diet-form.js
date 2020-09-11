@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import "./diet-form.scss";
 
 const DietForm = () => {
@@ -57,7 +58,7 @@ const DietForm = () => {
           </span>
         </label>
       </fieldset>
-      <button className='btn-primary'>Рассчитать</button>
+      <Link to='/recomendation/' className='btn-primary'>Рассчитать</Link>
     </form>
   );
 };

@@ -10,19 +10,24 @@
 // * идея приложения: подсчет каллорий и вывод рекомендованных продуктов питания и блюд
 
 import React from "react";
-import { withServiceConsumer, withData } from "../hoc";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PageHeader from '../page-header'
 import DietForm from "../diet-form";
+import DietRecomendation from "../diet-recomendation";
 
-const App = ({ data }) => {
-  const { name } = data[0];
+
+const App = () => {
   return (
-    <div className='container'>
-      <h1>
-        <span> {name}</span>
-      </h1>
-      <DietForm />
-    </div>
+    <Router>
+      <Switch>
+        <div className='container'>
+          <PageHeader />
+          <Route path='/' exact component={DietForm} />
+          <Route path='/recomendation/' component={DietRecomendation} />
+        </div>
+      </Switch>
+    </Router>
   );
 };
 
-export default withServiceConsumer(withData(App));
+export default App;
