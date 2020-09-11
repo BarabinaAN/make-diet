@@ -11,20 +11,18 @@
 
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PageHeader from '../page-header'
-import DietForm from "../diet-form";
-import DietRecomendation from "../diet-recomendation";
+import {
+  CalculationPage,
+  RecomendationPage
+} from '../pages'
 
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <div className='container'>
-          <PageHeader />
-          <Route path='/' exact component={DietForm} />
-          <Route path='/recomendation/' component={DietRecomendation} />
-        </div>
+        <Route path='/' exact component={CalculationPage} />
+        <Route path='/recomendation/' component={RecomendationPage} />
       </Switch>
     </Router>
   );
