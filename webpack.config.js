@@ -1,11 +1,12 @@
+var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env={}) => {
+module.exports = (env = {}) => {
 
-  const { mode='dev' } = env
-  const isProd = mode === 'prod' 
-  const isDev = mode === 'dev' 
+  const { mode = 'dev' } = env
+  const isProd = mode === 'prod'
+  const isDev = mode === 'dev'
 
   const getStyleLoaders = () => {
     return [
@@ -19,7 +20,7 @@ module.exports = (env={}) => {
         template: 'public/index.html'
       })
     ]
-    if(isProd) {
+    if (isProd) {
       plugins.push(
         new MiniCssExtractPlugin({
           filename: '[name]-[hash:7].css'
@@ -30,6 +31,9 @@ module.exports = (env={}) => {
   }
 
   return {
+    output: {
+      publicPath: '/',
+    },
     mode: isProd ? 'production' : isDev && "development",
     module: {
       rules: [
@@ -60,6 +64,8 @@ module.exports = (env={}) => {
     },
     plugins: getPlugins(),
     devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      historyApiFallback: true,
       open: true
     }
   }

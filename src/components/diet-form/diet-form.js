@@ -4,15 +4,15 @@ import "./diet-form.scss";
 
 const DietForm = () => {
   return (
-    <form action="" method="" className="diet-form">
+    <form className="diet-form">
       <fieldset className='fieldset'>
         <legend>Пол:</legend>
         <label className='label-radio'>
-          <input type="radio" name="gender" value="men" />
+          <input type="radio" name="gender" value="male" />
           <span>мужской</span>
         </label>
         <label className='label-radio'>
-          <input type="radio" name="gender" />
+          <input type="radio" name="gender" value="famale" />
           <span>женский</span>
         </label>
       </fieldset>

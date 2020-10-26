@@ -13,7 +13,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   CalculationPage,
-  RecomendationPage
+  RecomendationPage,
+  Error404Page
 } from '../pages'
 
 
@@ -23,6 +24,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact component={CalculationPage} />
         <Route path='/recomendation/' component={RecomendationPage} />
+        <Route component={Error404Page} />
       </Switch>
     </Router>
   );

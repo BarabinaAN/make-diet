@@ -1,9 +1,11 @@
 import {
    CalculationPage,
-   RecomendationPage
+   RecomendationPage,
+   Error404Page
 } from './pages'
 
 export {
    CalculationPage,
-   RecomendationPage
+   RecomendationPage,
+   Error404Page
 }
