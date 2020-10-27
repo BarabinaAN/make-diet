@@ -1,7 +1,7 @@
 import React from "react";
 import "./radio.scss";
 
-const Radio = ({ name, value, label, onChange }) => {
+const Radio = ({ name, value, label, onChange}) => {
   return (
     <label className='label-radio'>
       <input
