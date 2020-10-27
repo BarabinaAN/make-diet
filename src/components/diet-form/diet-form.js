@@ -22,9 +22,22 @@ class DietForm extends Component {
     }
   }
 
-  onChangeRadio = (e) => {
-    const { name, value } = e.target
+  componentDidMount() {
+    const [...inputs] = document.querySelectorAll('input')
+    const radio = inputs.filter(el => el.getAttribute('type') === 'radio')
+    this.setDefaultRadio(radio, 'gender')
+    this.setDefaultRadio(radio, 'activity')
+  }
 
+  setDefaultRadio = (elements, name) => {
+    const defaultEl = elements.filter(el => el.getAttribute('name') === name)[0]
+    const value = defaultEl.getAttribute('value')
+
+    defaultEl.setAttribute('checked', true)
+    this.setValue(name, value)
+  }
+
+  setValue = (name, value) => {
     this.setState((state) => {
       return {
         fields: {
@@ -35,6 +48,11 @@ class DietForm extends Component {
     })
   }
 
+  onChangeRadio = (e) => {
+    const { name, value } = e.target
+    this.setValue(name, value)
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -42,10 +60,10 @@ class DietForm extends Component {
   }
 
   validate = (obj) => {
-    const {fields, errors} = obj
+    const { fields, errors } = obj
 
     const isValidate = Object.entries(fields).forEach(([key, val]) => {
-      if(this.checkValue(key, val)) {
+      if (this.checkValue(key, val)) {
         this.setError(key, '')
       }
     })
@@ -59,7 +77,7 @@ class DietForm extends Component {
       case 'gender':
         return this.isEmpty(key, val, 'check your gender')
       case 'age':
-        return this.isEmpty(key, val, 'age is empty' ) && this.isNumber(key, val, 'age is not a number')
+        return this.isEmpty(key, val, 'age is empty') && this.isNumber(key, val, 'age is not a number')
       case 'weight':
         return this.isEmpty(key, val, 'weight is empty') && this.isNumber(key, val, 'weight is not a number')
       case 'growth':
@@ -99,13 +117,13 @@ class DietForm extends Component {
   }
 
   render() {
-
+    console.log(this.state);
     const { age, growth, weight } = this.state.fields
     const { errors } = this.state
     return (
       <form className="diet-form">
         <fieldset className='fieldset'>
-          <legend>Пол:</legend>        
+          <legend>Пол:</legend>
           <Radio
             name="gender"
             value="male"
@@ -142,7 +160,7 @@ class DietForm extends Component {
             label="вес в кг"
             value={weight}
             onChange={this.onChangeRadio}
-            error = {errors.weight}
+            error={errors.weight}
           />
         </fieldset>
         <fieldset className='fieldset'>
