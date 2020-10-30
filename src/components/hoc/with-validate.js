@@ -16,7 +16,8 @@ const withValidate = (View) => {
             growth: '',
             weight: '',
             activity: '',
-         }
+         },
+         result: null
       }
 
       componentDidMount() {
@@ -52,40 +53,71 @@ const withValidate = (View) => {
 
       onSubmit = (e) => {
          e.preventDefault();
-         this.validate(this.state);
+         this.checkValidate(this.state);
+         if (!this.checkValidate(this.state)) {
+            return
+         }
+         this.calculate(this.state);
       }
 
-      validate = (obj) => {
-         const { fields, errors } = obj
-
-         const isValidate = Object.entries(fields).forEach(([key, val]) => {
-            if (this.checkValue(key, val)) {
-               this.setError(key, '')
+      calculate = (obj) => {
+         const { age, weight } = obj.fields
+         this.setState(() => {
+            return {
+               result: age * weight
             }
          })
-
-         const hasError = Object.values(errors).every(error => error.trim() !== '')
-         if (!hasError) return console.error('not valide value')
       }
 
-      checkValue = (key, val) => {
-         switch (key) {
-            case 'gender':
-               return this.isEmpty(key, val, 'check your gender')
-            case 'age':
-               return this.isEmpty(key, val, 'age is empty') && this.isNumber(key, val, 'age is not a number')
-            case 'weight':
-               return this.isEmpty(key, val, 'weight is empty') && this.isNumber(key, val, 'weight is not a number')
-            case 'growth':
-               return this.isEmpty(key, val, 'growth is empty') && this.isNumber(key, val, 'growth is not a number')
-            case 'activity':
-               return this.isEmpty(key, val, 'check your activity')
-            default:
-               return true
+      checkValidate = (obj) => {
+         const { fields, errors } = obj
+
+         const isValidate = Object.keys(errors).every(
+            (key) => this.checkValue(key, fields[key])
+         )
+
+         if (!isValidate) {
+            console.error('not valide value', isValidate)
+            return isValidate
+         } else {
+            // Object.keys(errors).forEach(key => this.setError(key, ''))
+            return isValidate
          }
       }
 
-      setError = (key, msg) => {
+      checkValue = (key, val) => {
+         const empty = this.validateFun(this.isEmpty)(key, val)('пусто')
+         const number = this.validateFun(this.isNumber)(key, val)
+
+         switch (key) {
+            case 'gender':
+               return empty
+            case 'age':
+               return empty && number( 'age is not a number')
+            case 'weight':
+               return empty && number( 'weight is not a number')
+            case 'growth':
+               return empty && number( 'growth is not a number')
+            case 'activity':
+               return empty
+            default:
+               return false
+         }
+      }
+
+      validateFun = (validate) => (key, val) => (msg) => {
+         if (!validate(val)) {
+            this.setError(key, msg)
+            return false
+         }
+         this.setError(key)
+         return true;
+      }
+
+      isNumber = (val) => !isNaN(val)
+      isEmpty = (val) => val.trim() !== ''
+
+      setError = (key, msg = '') => {
          this.setState((state) => {
             return {
                errors: {
@@ -96,24 +128,9 @@ const withValidate = (View) => {
          })
       }
 
-      isNumber = (key, val, msg) => {
-         if (isNaN(val)) {
-            this.setError(key, msg)
-            return false
-         }
-         return true;
-      }
-
-      isEmpty = (key, val, msg) => {
-         if (val.trim() === '') {
-            this.setError(key, msg)
-            return false
-         }
-         return true;
-      }
       render() {
          console.log(this.state);
-         return <View {...this.state} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit}/>
+         return <View {...this.state} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit} />
       }
    }
 }
