@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {isNumber, isEmpty} from '../../utils/validate'
 
 const withValidate = (View) => {
    return class extends Component {
@@ -86,8 +87,8 @@ const withValidate = (View) => {
       }
 
       checkValue = (key, val) => {
-         const empty = this.validateFun(this.isEmpty)(key, val)('пусто')
-         const number = this.validateFun(this.isNumber)(key, val)
+         const empty = this.validateFun(isEmpty)(key, val)('пусто')
+         const number = this.validateFun(isNumber)(key, val)
 
          switch (key) {
             case 'gender':
@@ -114,8 +115,7 @@ const withValidate = (View) => {
          return true;
       }
 
-      isNumber = (val) => !isNaN(val)
-      isEmpty = (val) => val.trim() !== ''
+
 
       setError = (key, msg = '') => {
          this.setState((state) => {
