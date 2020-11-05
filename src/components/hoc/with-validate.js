@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {isNumber, isEmpty} from '../../utils/validate'
+import { isNumber, isEmpty } from '../../utils/validate'
 
 const withValidate = (View) => {
    return class extends Component {
@@ -54,7 +54,7 @@ const withValidate = (View) => {
 
       onSubmit = (e) => {
          e.preventDefault();
-         this.checkValidate(this.state);
+         // this.checkValidate(this.state);
          if (!this.checkValidate(this.state)) {
             return
          }
@@ -62,10 +62,30 @@ const withValidate = (View) => {
       }
 
       calculate = (obj) => {
-         const { age, weight } = obj.fields
+         const { age, weight, gender, growth, activity } = obj.fields
+
+         const genderI = Number(gender) === 5 ? 1 : -1
+         const base = Number(weight) * 10 + Number(growth) * 6.25 - Number(age) * 5 + genderI * Number(gender)
+         const normal = base * Number(activity)
+         const loss = normal - 400 < base ? base : normal - 400
+         const gain = normal + 200
+
+         function getCalories(val) {
+            return {
+               calories: Math.floor(val),
+               proteins: Math.floor(val * 0.3),
+               fats: Math.floor(val * 0.3),
+               carbohydrates: Math.floor(val * 0.4)
+            }
+         }
+
          this.setState(() => {
             return {
-               result: age * weight
+               result: {
+                  normal: getCalories(normal),
+                  loss: getCalories(loss),
+                  gain: getCalories(gain),
+               }
             }
          })
       }
@@ -78,12 +98,13 @@ const withValidate = (View) => {
          )
 
          if (!isValidate) {
+            Object.keys(errors).map(
+               (key) => this.checkValue(key, fields[key])
+            )
             console.error('not valide value', isValidate)
-            return isValidate
-         } else {
-            // Object.keys(errors).forEach(key => this.setError(key, ''))
-            return isValidate
          }
+
+         return isValidate
       }
 
       checkValue = (key, val) => {
@@ -94,11 +115,11 @@ const withValidate = (View) => {
             case 'gender':
                return empty
             case 'age':
-               return empty && number( 'age is not a number')
+               return empty && number('age is not a number')
             case 'weight':
-               return empty && number( 'weight is not a number')
+               return empty && number('weight is not a number')
             case 'growth':
-               return empty && number( 'growth is not a number')
+               return empty && number('growth is not a number')
             case 'activity':
                return empty
             default:
@@ -115,8 +136,6 @@ const withValidate = (View) => {
          return true;
       }
 
-
-
       setError = (key, msg = '') => {
          this.setState((state) => {
             return {
@@ -129,7 +148,6 @@ const withValidate = (View) => {
       }
 
       render() {
-         console.log(this.state);
          return <View {...this.state} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit} />
       }
    }
