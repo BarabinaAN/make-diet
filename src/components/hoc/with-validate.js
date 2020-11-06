@@ -70,8 +70,9 @@ const withValidate = (View) => {
          const loss = normal - 400 < base ? base : normal - 400
          const gain = normal + 200
 
-         function getCalories(val) {
+         function getCalories(val, name='') {
             return {
+               balance: name,
                calories: Math.floor(val),
                proteins: Math.floor(val * 0.3),
                fats: Math.floor(val * 0.3),
@@ -81,11 +82,11 @@ const withValidate = (View) => {
 
          this.setState(() => {
             return {
-               result: {
-                  normal: getCalories(normal),
-                  loss: getCalories(loss),
-                  gain: getCalories(gain),
-               }
+               result: [
+                  getCalories(normal, 'normal'),
+                  getCalories(loss, 'loss'),
+                  getCalories(gain, 'gain'),
+               ]              
             }
          })
       }
