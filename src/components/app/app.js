@@ -12,8 +12,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
-  CalculationPage,
-  RecomendationPage,
+  DietPage,
   Error404Page
 } from '../pages'
 
@@ -22,8 +21,8 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact component={CalculationPage} />
-        <Route path='/recomendation/' component={RecomendationPage} />
+        <Route path='/' exact component={DietPage} />
+        {/* <Route path='/recomendation/' component={RecomendationPage} /> */}
         <Route component={Error404Page} />
       </Switch>
     </Router>

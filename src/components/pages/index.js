@@ -1,11 +1,9 @@
 import {
-   CalculationPage,
-   RecomendationPage,
+   DietPage,
    Error404Page
 } from './pages'
 
 export {
-   CalculationPage,
-   RecomendationPage,
+   DietPage,
    Error404Page
 }

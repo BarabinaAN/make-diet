@@ -5,26 +5,26 @@ import DietRecomendation from "../diet-recomendation";
 import { withValidate } from "../hoc";
 import { Link } from 'react-router-dom';
 
-const DietPage = (props) => {
+
+
+const Diet = (props) => {
+   return (
+      <div className="grid">
+         <DietForm {...props}/>
+         <DietRecomendation {...props}/>
+      </div>
+   )
+}
+const DietValidate = withValidate(Diet)
+const DietPage = () => {
    return (
       <div className='container'>
          <PageHeader />
-         <div className="grid">
-            <DietForm {...props}/>
-            <DietRecomendation {...props}/>
-         </div>
+         <DietValidate />
       </div>
    )
 }
 
-const RecomendationPage = () => {
-   return (
-      <div className='container'>
-         <PageHeader />
-         <DietRecomendation />
-      </div>
-   )
-}
 const Error404Page = () => {
    return (
       <div className='container'>
@@ -37,10 +37,9 @@ const Error404Page = () => {
       </div>
    )
 }
-const CalculationPage = withValidate(DietPage)
+
 
 export {
-   CalculationPage,
-   RecomendationPage,
+   DietPage,
    Error404Page
 };

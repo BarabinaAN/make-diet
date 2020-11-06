@@ -1,8 +1,6 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import Input from "../input";
 import Radio from "../radio";
-import { withValidate } from "../hoc";
 
 import "./diet-form.scss";
 
