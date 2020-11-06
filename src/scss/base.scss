@@ -27,3 +27,34 @@ h1 {
     width: 50%;
   }
 }
+
+dl {
+  margin: 20px 0;
+  dt {
+     margin-top: 20px;
+     margin-bottom: 15px;
+  }
+  dd {
+     margin: 10px 0;
+     font-size: 14px;
+  }
+}
+b,
+.mark-blue,
+.mark-green,
+.mark-red {
+  font-weight: 700;
+}
+
+small {
+  font-size: 0.875em;
+}
+.mark-blue {
+  color: #7a8ee7;
+}
+.mark-green {
+  color: #70cf80;
+}
+.mark-red {
+  color: #e77aad;
+}

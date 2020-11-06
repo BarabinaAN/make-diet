@@ -37,8 +37,22 @@ const DietRecomendation = (props) => {
   return (
     <div className="cell-6">
       <section className="diet-recomendation">
-        <h2>Результат:</h2>
+        <h2>Расход калорий в течение дня для:</h2>
         {recomendation}
+        <dl>
+          <dt><span className="mark-green">Поддержания веса:</span> 1500 <small>кКалл</small></dt>
+            <dd><b>Белки:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Жиры:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Углеводы:</b> 1000 <small>кКалл</small></dd>
+          <dt><span className="mark-blue">Снижения веса: </span>1200 <small>кКалл</small></dt>
+            <dd><b>Белки:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Жиры:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Углеводы:</b> 1000 <small>кКалл</small></dd>
+          <dt><span className="mark-red">Набора веса:</span> 1700 <small>кКалл</small></dt>
+            <dd><b>Белки:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Жиры:</b> 1000 <small>кКалл</small></dd>
+            <dd><b>Углеводы:</b> 1000 <small>кКалл</small></dd>
+        </dl>
       </section>
     </div>
   );
