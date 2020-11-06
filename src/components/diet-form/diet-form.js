@@ -7,7 +7,7 @@ import { withValidate } from "../hoc";
 import "./diet-form.scss";
 
 const DietForm = (props) => {
-  const { errors, fields, result, onChangeRadio, onSubmit } = props
+  const { errors, fields, onChangeRadio, onSubmit } = props
   const { age, growth, weight } = fields
 
   const fieldlist = [
@@ -59,53 +59,21 @@ const DietForm = (props) => {
     })
   }
 
-  const renderResult = () => {
-    const { normal, loss, gain } = result
-
-    return (
-      <div>
-        <div>
-          Общий коллораж с учетом активности: {normal.calories} ккалл
-          <ul>
-            <li>Белки:<b>{normal.proteins}</b> ккалл</li>
-            <li>Жиры:<b>{normal.fats}</b> ккалл</li>
-            <li>Углеводы:<b>{normal.carbohydrates}</b> ккалл</li>
-          </ul>
-        </div>
-        <div>Коллораж на уменьшение массы: {loss.calories} ккалл
-          <ul>
-            <li>Белки:<b>{loss.proteins}</b> ккалл</li>
-            <li>Жиры:<b>{loss.fats}</b> ккалл</li>
-            <li>Углеводы:<b>{loss.carbohydrates}</b> ккалл</li>
-          </ul>
-        </div>
-        <div>Коллораж на набор массы: {gain.calories} ккалл
-          <ul>
-            <li>Белки:<b>{gain.proteins}</b> ккалл</li>
-            <li>Жиры:<b>{gain.fats}</b> ккалл</li>
-            <li>Углеводы:<b>{gain.carbohydrates}</b> ккалл</li>
-          </ul>
-        </div>
-      </div>
-    )
-  }
-
   const fieldset = renderFieldset(fieldlist)
-  const calculate = result ? renderResult() : null
   return (
-    <form className="diet-form">
-      {fieldset}
-      <button
-        type='submit'
-        className='btn-primary'
-        onClick={onSubmit}
-      >
-        Рассчитать
-        </button>
-      {/* <Link to='/recomendation/' className='btn-primary'>Рассчитать</Link> */}
-      {calculate}
-    </form>
+    <div className="cell-6">
+      <form className="diet-form">
+        {fieldset}
+        <button
+          type='submit'
+          className='btn-primary'
+          onClick={onSubmit}
+        >
+          Рассчитать
+          </button>
+      </form>
+    </div>
   );
 };
 
-export default withValidate(DietForm);
+export default DietForm;
