@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isNumber, isEmpty, calculate } from '../../utils'
+import { calculate, checkValidate } from '../../utils'
 
 const withValidate = (View) => {
    return class extends Component {
@@ -21,20 +21,7 @@ const withValidate = (View) => {
          result: null
       }
 
-      componentDidMount() {
-         const [...inputs] = document.querySelectorAll('input')
-         const radio = inputs.filter(el => el.getAttribute('type') === 'radio')
-         // this.setDefaultRadio(radio, 'gender')
-         // this.setDefaultRadio(radio, 'activity')
-      }
-
-      setDefaultRadio = (elements, name) => {
-         const defaultEl = elements.filter(el => el.getAttribute('name') === name)[0]
-         const value = defaultEl.getAttribute('value')
-
-         defaultEl.setAttribute('checked', true)
-         this.setValue(name, value)
-      }
+      componentDidMount() {}
 
       setValue = (name, value) => {
          this.setState((state) => {
@@ -42,6 +29,17 @@ const withValidate = (View) => {
                fields: {
                   ...state.fields,
                   [name]: value
+               }
+            }
+         })
+      }
+      
+      setError = (key, msg = '') => {
+         this.setState((state) => {
+            return {
+               errors: {
+                  ...state.errors,
+                  [key]: msg
                }
             }
          })
@@ -54,68 +52,11 @@ const withValidate = (View) => {
 
       onSubmit = (e) => {
          e.preventDefault();
-         if (!this.checkValidate(this.state)) {
+         if (!checkValidate(this.state, this.setError)) {
             return
          }
 
          this.setState((state) => ({ result: calculate(state) }) )
-      }
-
-      checkValidate = (obj) => {
-         const { fields, errors } = obj
-
-         const isValidate = Object.keys(errors).every(
-            (key) => this.checkValue(key, fields[key])
-         )
-
-         if (!isValidate) {
-            Object.keys(errors).map(
-               (key) => this.checkValue(key, fields[key])
-            )
-            console.error('not valide value', isValidate)
-         }
-
-         return isValidate
-      }
-
-      checkValue = (key, val) => {
-         const empty = this.validateFun(isEmpty)(key, val)('пусто')
-         const number = this.validateFun(isNumber)(key, val)
-
-         switch (key) {
-            case 'gender':
-               return empty
-            case 'age':
-               return empty && number('age is not a number')
-            case 'weight':
-               return empty && number('weight is not a number')
-            case 'growth':
-               return empty && number('growth is not a number')
-            case 'activity':
-               return empty
-            default:
-               return false
-         }
-      }
-
-      validateFun = (validate) => (key, val) => (msg) => {
-         if (!validate(val)) {
-            this.setError(key, msg)
-            return false
-         }
-         this.setError(key)
-         return true;
-      }
-
-      setError = (key, msg = '') => {
-         this.setState((state) => {
-            return {
-               errors: {
-                  ...state.errors,
-                  [key]: msg
-               }
-            }
-         })
       }
 
       render() {
