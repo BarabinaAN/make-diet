@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isNumber, isEmpty } from '../../utils/validate'
+import { isNumber, isEmpty, calculate } from '../../utils'
 
 const withValidate = (View) => {
    return class extends Component {
@@ -54,41 +54,11 @@ const withValidate = (View) => {
 
       onSubmit = (e) => {
          e.preventDefault();
-         // this.checkValidate(this.state);
          if (!this.checkValidate(this.state)) {
             return
          }
-         this.calculate(this.state);
-      }
 
-      calculate = (obj) => {
-         const { age, weight, gender, growth, activity } = obj.fields
-
-         const genderI = Number(gender) === 5 ? 1 : -1
-         const base = Number(weight) * 10 + Number(growth) * 6.25 - Number(age) * 5 + genderI * Number(gender)
-         const normal = base * Number(activity)
-         const loss = normal - 400 < base ? base : normal - 400
-         const gain = normal + 200
-
-         function getCalories(val, name='') {
-            return {
-               balance: name,
-               calories: Math.floor(val),
-               proteins: Math.floor(val * 0.3),
-               fats: Math.floor(val * 0.3),
-               carbohydrates: Math.floor(val * 0.4)
-            }
-         }
-
-         this.setState(() => {
-            return {
-               result: [
-                  getCalories(normal, 'normal'),
-                  getCalories(loss, 'loss'),
-                  getCalories(gain, 'gain'),
-               ]              
-            }
-         })
+         this.setState((state) => ({ result: calculate(state) }) )
       }
 
       checkValidate = (obj) => {
