@@ -1,26 +1,36 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PageHeader from '../page-header';
 import DietForm from "../diet-form";
 import DietRecomendation from "../diet-recomendation";
-import { withValidate } from "../hoc";
 import { Link } from 'react-router-dom';
 
 
+class Diet extends Component {
+   state = {
+      result: null
+   }
 
-const Diet = (props) => {
-   return (
-      <div className="grid">
-         <DietForm {...props}/>
-         <DietRecomendation {...props}/>
-      </div>
-   )
+   updateResult = (value) => {
+      this.setState((state) => ({ result: value }) )
+   }
+
+   render() {
+      const {result} = this.state
+      console.log(result);
+       return (
+          <div className="grid">
+             <DietForm onCalc={this.updateResult}/>
+             <DietRecomendation {...this.state}/>
+          </div>
+       )
+   }
 }
-const DietValidate = withValidate(Diet)
+
 const DietPage = () => {
    return (
       <div className='container'>
          <PageHeader />
-         <DietValidate />
+         <Diet />
       </div>
    )
 }

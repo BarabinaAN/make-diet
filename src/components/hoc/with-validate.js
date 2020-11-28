@@ -1,24 +1,11 @@
 import React, { Component } from 'react'
-import { calculate, checkValidate } from '../../utils'
+import { checkValidate } from '../../utils'
 
-const withValidate = (View) => {
+const withValidate = (View, requiredFields = {}) => {
    return class extends Component {
       state = {
-         fields: {
-            gender: '',
-            age: '',
-            growth: '',
-            weight: '',
-            activity: '',
-         },
-         errors: {
-            gender: '',
-            age: '',
-            growth: '',
-            weight: '',
-            activity: '',
-         },
-         result: null
+         fields: requiredFields,
+         errors: requiredFields,
       }
 
       componentDidMount() {}
@@ -51,16 +38,11 @@ const withValidate = (View) => {
       }
 
       onSubmit = (e) => {
-         e.preventDefault();
-         if (!checkValidate(this.state, this.setError)) {
-            return
-         }
-
-         this.setState((state) => ({ result: calculate(state) }) )
+         return checkValidate(this.state, this.setError)
       }
 
       render() {
-         return <View {...this.state} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit} />
+         return <View {...this.state} {...this.props} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit} />
       }
    }
 }
