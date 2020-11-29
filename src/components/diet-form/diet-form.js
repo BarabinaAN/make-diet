@@ -18,25 +18,30 @@ class DietForm extends Component {
 
   onCalculate = (e) => {
     e.preventDefault();
-    // убрать onSubmit, заменить на свойство - isValidate
-    if (!this.props.onSubmit(e)) {
+    const { onCheckValidate, updateResult, fields } = this.props
+    const isValidate = onCheckValidate();
+
+    if (!isValidate) {
       return
     }
-    this.props.updateResult(calculate(this.props))
+    updateResult(calculate(fields))
   }
 
   renderField = (arr) => {
-    return arr.map(({ type, ...other }) => {
-      if (type === 'radio') {
-        return <Radio {...other} onChange={this.props.onChangeRadio} />
-      }
+    const { onChangeField, fields, errors } = this.props
 
-      return <Input {...other} onChange={this.props.onChangeRadio} />
+    return arr.map(({ type, defaultValue, name, ...other }) => {
+      const value = !!defaultValue === true ? defaultValue : fields[name]
+      const error = !!defaultValue === true ? defaultValue : errors[name]
+
+      if (type === 'radio') {
+        return <Radio {...other} value={value} name={name} onChange={onChangeField}/>
+      }
+      return <Input {...other} value={value} name={name} error={error} onChange={onChangeField}/>
     })
   }
 
   renderFieldset = (arr) => {
-    console.log(arr);
     return arr.map(({ legend, list }) => {
       const inputs = this.renderField(list)
       return (
@@ -49,38 +54,34 @@ class DietForm extends Component {
   }
 
 
-  render() {
-    const { errors, fields, onChangeRadio, onSubmit } = this.props
-    const { age, growth, weight } = fields
-    
+  render() {   
     const fieldlist = [
       {
         legend: 'Пол:',
         list: [
-          { key: 1, type: "radio", name: "gender", value: "5", label: "мужской" },
-          { key: 2, type: "radio", name: "gender", value: "161", label: "женский" },
+          { key: 1, type: "radio", name: "gender", defaultValue: "5", label: "мужской" },
+          { key: 2, type: "radio", name: "gender", defaultValue: "161", label: "женский" },
         ],
       },
       {
         legend: 'Параметры Вашего тела:',
         list: [
-          { key: 1, type: "text", name: "age", value: age, label: "возраст (полных лет)", error: errors.age },
-          { key: 2, type: "text", name: "growth", value: growth, label: "рост в см", error: errors.growth },
-          { key: 3, type: "text", name: "weight", value: weight, label: "вес в кг", error: errors.weight },
+          { key: 1, type: "text", name: "age", defaultValue: "", label: "возраст (полных лет)" },
+          { key: 2, type: "text", name: "growth", defaultValue: "", label: "рост в см" },
+          { key: 3, type: "text", name: "weight", defaultValue: "", label: "вес в кг" },
         ],
       },
       {
         legend: 'Активность:',
         list: [
-          { key: 1, type: "radio", name: "activity", value: "1.2", label: "малоподвижный (сидячий )" },
-          { key: 2, type: "radio", name: "activity", value: "1.3", label: "легкая нагрузка (1-3 тренировки в неделю)" },
-          { key: 3, type: "radio", name: "activity", value: "1.6", label: "умеренная нагрузка (3-5 тренировок в неделю)" },
-          { key: 4, type: "radio", name: "activity", value: "1.7", label: "высокая нагрузка/профисиональный спорт (более 5 тренировок в неделю)" },
+          { key: 1, type: "radio", name: "activity", defaultValue: "1.2", label: "малоподвижный (сидячий )" },
+          { key: 2, type: "radio", name: "activity", defaultValue: "1.3", label: "легкая нагрузка (1-3 тренировки в неделю)" },
+          { key: 3, type: "radio", name: "activity", defaultValue: "1.6", label: "умеренная нагрузка (3-5 тренировок в неделю)" },
+          { key: 4, type: "radio", name: "activity", defaultValue: "1.7", label: "высокая нагрузка/профисиональный спорт (более 5 тренировок в неделю)" },
         ],
       },
     ]
     const fieldset = this.renderFieldset(fieldlist)
-    console.log('diet form props', this.props);
 
     return (
       <div className="cell-6">

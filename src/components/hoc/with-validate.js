@@ -8,8 +8,6 @@ const withValidate = (View, requiredFields = {}) => {
          errors: requiredFields,
       }
 
-      componentDidMount() {}
-
       setValue = (name, value) => {
          this.setState((state) => {
             return {
@@ -31,18 +29,19 @@ const withValidate = (View, requiredFields = {}) => {
             }
          })
       }
-
-      onChangeRadio = (e) => {
+      
+      onChangeField= (e) => {
          const { name, value } = e.target
          this.setValue(name, value)
       }
 
-      onSubmit = (e) => {
+      // onCheckValidate, заменить на свойство - isValidate
+      onCheckValidate = () => {
          return checkValidate(this.state, this.setError)
       }
 
       render() {
-         return <View {...this.state} {...this.props} onChangeRadio={this.onChangeRadio} onSubmit={this.onSubmit} />
+         return <View {...this.state} {...this.props} onChangeField={this.onChangeField} onCheckValidate={this.onCheckValidate} />
       }
    }
 }

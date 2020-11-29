@@ -1,5 +1,5 @@
 function calculate (obj) {
-   const { age, weight, gender, growth, activity } = obj.fields
+   const { age, weight, gender, growth, activity } = obj
 
    const genderI = Number(gender) === 5 ? 1 : -1
    const base = Number(weight) * 10 + Number(growth) * 6.25 - Number(age) * 5 + genderI * Number(gender)

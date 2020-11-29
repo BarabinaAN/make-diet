@@ -15,11 +15,9 @@ class Diet extends Component {
    }
 
    render() {
-      const {result} = this.state
-      console.log(result);
        return (
           <div className="grid">
-             <DietForm onCalc={this.updateResult}/>
+             <DietForm updateResult={this.updateResult}/>
              <DietRecomendation {...this.state}/>
           </div>
        )
